@@ -33,15 +33,6 @@ public class App extends Application {
     //GUI
     private GridPane gridPane=new GridPane();
     private BorderPane borderPane=new BorderPane();
-
-    //private Label title=new Label("Theme");
-    //private Button Random_AI_Button=new Button("Start With Random AI");
-
-
-    //private Button Defensive_AI_Button=new Button("Start With Defensive AI");
-
-    //public void getTheme(ActionEvent event);
-
     Font font=Font.font("Arial",FontWeight.BOLD,24);
     Font font2=Font.font("Arial",FontWeight.BOLD,17);
     Font font3=Font.font("Arial",FontWeight.SEMI_BOLD,15);
