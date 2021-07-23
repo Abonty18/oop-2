@@ -78,7 +78,7 @@ public class App extends Application {
         //VBox.setMargin(right,new Insets(250,250,250,250));
         up.setPrefWidth(250);
         up.setPrefHeight(35);
-        up.setPadding(new Insets(20,30,50,380));
+        up.setPadding(new Insets(20,0,50,380));
         up.setSpacing(10);
         title.setMinWidth(up.getPrefWidth());
         title.setMinHeight(up.getPrefHeight());
@@ -126,6 +126,8 @@ public class App extends Application {
         radioButton3.setFont(font3);
         button1.setFont(font2);
         button2.setFont(font2);
+        button1.setStyle("-fx-base: black");
+        button2.setStyle("-fx-base: black");
         //Random_AI_Button.setFont(font);
         //Defensive_AI_Button.setFont(font);
         up.setAlignment(Pos.TOP_RIGHT);
