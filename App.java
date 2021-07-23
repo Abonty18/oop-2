@@ -66,8 +66,8 @@ public class App extends Application {
     private void createGUI() {
 
 
-        HBox hBox1=new HBox();
-        HBox hBox2=new HBox();
+        HBox hBox=new HBox();
+        //HBox hBox2=new HBox();
         VBox right =new VBox();
         VBox up=new VBox();
         Label title=new Label("Theme");
@@ -91,10 +91,11 @@ public class App extends Application {
         button2.setMinHeight(right.getPrefHeight());
         right.getChildren().addAll(button1,button2);
         up.getChildren().addAll(title);
-        hBox2.getChildren().addAll(up,right);
-        hBox1.getChildren().addAll(gridPane);
-        hBox1.setPadding(new Insets(20,20,20,20));
-        hBox2.setPadding(new Insets(20,20,20,20));
+        
+        //hBox2.getChildren().addAll(up,right);
+        hBox.getChildren().addAll(gridPane,);
+        hBox.setPadding(new Insets(20,20,20,20));
+        //hBox2.setPadding(new Insets(20,20,20,20));
         //hBox1.setAlignment(Pos.CENTER_LEFT);
         //hBox2.setAlignment(Pos.CENTER_RIGHT);
 
