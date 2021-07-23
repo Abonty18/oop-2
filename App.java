@@ -9,10 +9,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -72,38 +71,44 @@ public class App extends Application {
         //HBox hBox2=new HBox();
         //VBox main=new VBox();
         VBox right =new VBox();
-        VBox up=new VBox();
+        Region spacer=new Region();
+        spacer.setMaxSize(100,100);
+        //VBox up=new VBox();
         Label title=new Label("Theme");
         //VBox.setMargin(up,new Insets(250,250,250,250));
         //VBox.setMargin(right,new Insets(250,250,250,250));
-        up.setPrefWidth(250);
-        up.setPrefHeight(35);
-        up.setPadding(new Insets(20,0,50,380));
-        up.setSpacing(10);
-        title.setMinWidth(up.getPrefWidth());
-        title.setMinHeight(up.getPrefHeight());
+        //up.setPrefWidth(250);
+        //up.setPrefHeight(35);
+        //up.setPadding(new Insets(20,0,50,370));
+        //up.setSpacing(10);
+        //title.setMinWidth(right.getPrefWidth());
+        //title.setMinHeight(right.getPrefHeight());
         right.setPrefWidth(250);
         right.setPrefHeight(35);
         right.setPadding(new Insets(10,50,50,50));
         right.setSpacing(10);
         Button button1=new Button("Start With Random AI");
         Button button2=new Button("Start With Defensive AI");
+        ToggleGroup group=new ToggleGroup();
         RadioButton radioButton1=new RadioButton("Classic");
+        radioButton1.setToggleGroup(group);
         RadioButton radioButton2=new RadioButton("Forrest");
+        radioButton2.setToggleGroup(group);
         RadioButton radioButton3=new RadioButton("High Contrast");
+        radioButton3.setToggleGroup(group);
 
         button1.setMinWidth(right.getPrefWidth());
         button1.setMinHeight(right.getPrefHeight());
         button2.setMinWidth(right.getPrefWidth());
         button2.setMinHeight(right.getPrefHeight());
-        radioButton1.setMinWidth(up.getPrefWidth());
-        radioButton1.setMinHeight(up.getPrefHeight());
-        radioButton2.setMinWidth(up.getPrefWidth());
-        radioButton2.setMinHeight(up.getPrefHeight());
-        radioButton3.setMinWidth(up.getPrefWidth());
-        radioButton3.setMinHeight(up.getPrefHeight());
-        right.getChildren().addAll(button1,button2);
-        up.getChildren().addAll(title,radioButton1,radioButton2,radioButton3);
+        radioButton1.setMinWidth(right.getPrefWidth());
+        radioButton1.setMinHeight(right.getPrefHeight());
+        radioButton2.setMinWidth(right.getPrefWidth());
+        radioButton2.setMinHeight(right.getPrefHeight());
+        radioButton3.setMinWidth(right.getPrefWidth());
+        radioButton3.setMinHeight(right.getPrefHeight());
+        right.getChildren().addAll(title,radioButton1,radioButton2,radioButton3,spacer,button1,button2);
+        //up.getChildren().addAll(title,radioButton1,radioButton2,radioButton3);
         //main.getChildren().addAll(up,right);
         //main.setPadding(new Insets(10,20,30,40));
 
@@ -130,13 +135,13 @@ public class App extends Application {
         button2.setStyle("-fx-base: black");
         //Random_AI_Button.setFont(font);
         //Defensive_AI_Button.setFont(font);
-        up.setAlignment(Pos.TOP_RIGHT);
-        right.setAlignment(Pos.BOTTOM_RIGHT);
+        //up.setAlignment(Pos.TOP_RIGHT);
+        right.setAlignment(Pos.CENTER_RIGHT);
 
 
         //creating restart button
         //themeButton.setFont(font);
-        borderPane.setTop(up);
+        //borderPane.setTop(up);
         //borderPane.setCenter(Random_AI_Button);
         //Random_AI_Button.setMaxSize(200,20);
         //borderPane.setBottom(Defensive_AI_Button);
@@ -146,8 +151,8 @@ public class App extends Application {
         borderPane.setBottom(right);
         //borderPane.setRight(right);
         //borderPane.setBottom(Defensive_AI_Button);
-        BorderPane.setAlignment(up, Pos.TOP_RIGHT);
-        BorderPane.setAlignment(right,Pos.BOTTOM_RIGHT);
+        //BorderPane.setAlignment(up, Pos.TOP_RIGHT);
+        BorderPane.setAlignment(right,Pos.CENTER_RIGHT);
         //BorderPane.setAlignment(Defensive_AI_Button,Pos.BASELINE_RIGHT);
         //borderPane.setPadding(new Insets(10,10,10,10));
         //9 buttons
@@ -159,7 +164,7 @@ public class App extends Application {
                 Button button=new Button(label+"");
                 button.setId(label+"");
                 button.setFont(font);
-                button.setPrefWidth(150);
+                button.setPrefWidth(100);
                 button.setPrefHeight(150);
                 gridPane.add(button,j,i);
                 gridPane.setAlignment(Pos.CENTER_LEFT);
@@ -178,7 +183,7 @@ public class App extends Application {
     /*private void handleEvent()
     {   //button click
 
-        button1.setOnAction(new EventHandler<ActionEvent>()
+        Button.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event) {
@@ -186,14 +191,7 @@ public class App extends Application {
 
             }
         });
-        ButtonBase button2;
-        button2.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Defensive AI button clicked");
 
-            }
-        });
 
         /*Random_AI_Button.setLayoutX(500);
         Random_AI_Button.setLayoutY(530);
