@@ -91,9 +91,9 @@ public class App extends Application {
         button2.setMinHeight(right.getPrefHeight());
         right.getChildren().addAll(button1,button2);
         up.getChildren().addAll(title);
-        
+
         //hBox2.getChildren().addAll(up,right);
-        hBox.getChildren().addAll(gridPane,);
+        hBox.getChildren().addAll(gridPane,up,right);
         hBox.setPadding(new Insets(20,20,20,20));
         //hBox2.setPadding(new Insets(20,20,20,20));
         //hBox1.setAlignment(Pos.CENTER_LEFT);
