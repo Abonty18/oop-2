@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -42,8 +43,9 @@ public class App extends Application {
 
     //public void getTheme(ActionEvent event);
 
-    Font font=Font.font("Arial",FontWeight.BOLD,21);
+    Font font=Font.font("Arial",FontWeight.BOLD,24);
     Font font2=Font.font("Arial",FontWeight.BOLD,17);
+    Font font3=Font.font("Arial",FontWeight.SEMI_BOLD,15);
 
     private Button[]btns=new Button[9];
 
@@ -66,8 +68,9 @@ public class App extends Application {
     private void createGUI() {
 
 
-        HBox hBox=new HBox();
+        //HBox hBox=new HBox();
         //HBox hBox2=new HBox();
+        //VBox main=new VBox();
         VBox right =new VBox();
         VBox up=new VBox();
         Label title=new Label("Theme");
@@ -75,26 +78,38 @@ public class App extends Application {
         //VBox.setMargin(right,new Insets(250,250,250,250));
         up.setPrefWidth(250);
         up.setPrefHeight(35);
-        //up.setPadding(new Insets(200,30,50,350));
+        up.setPadding(new Insets(20,30,50,380));
         up.setSpacing(10);
         title.setMinWidth(up.getPrefWidth());
         title.setMinHeight(up.getPrefHeight());
         right.setPrefWidth(250);
         right.setPrefHeight(35);
-        //right.setPadding(new Insets(10,50,50,50));
+        right.setPadding(new Insets(10,50,50,50));
         right.setSpacing(10);
         Button button1=new Button("Start With Random AI");
         Button button2=new Button("Start With Defensive AI");
+        RadioButton radioButton1=new RadioButton("Classic");
+        RadioButton radioButton2=new RadioButton("Forrest");
+        RadioButton radioButton3=new RadioButton("High Contrast");
+
         button1.setMinWidth(right.getPrefWidth());
         button1.setMinHeight(right.getPrefHeight());
         button2.setMinWidth(right.getPrefWidth());
         button2.setMinHeight(right.getPrefHeight());
+        radioButton1.setMinWidth(up.getPrefWidth());
+        radioButton1.setMinHeight(up.getPrefHeight());
+        radioButton2.setMinWidth(up.getPrefWidth());
+        radioButton2.setMinHeight(up.getPrefHeight());
+        radioButton3.setMinWidth(up.getPrefWidth());
+        radioButton3.setMinHeight(up.getPrefHeight());
         right.getChildren().addAll(button1,button2);
-        up.getChildren().addAll(title);
+        up.getChildren().addAll(title,radioButton1,radioButton2,radioButton3);
+        //main.getChildren().addAll(up,right);
+        //main.setPadding(new Insets(10,20,30,40));
 
         //hBox2.getChildren().addAll(up,right);
-        hBox.getChildren().addAll(gridPane,up,right);
-        hBox.setPadding(new Insets(20,20,20,20));
+        //hBox.getChildren().addAll(gridPane,main);
+        //hBox.setPadding(new Insets(20,20,20,20));
         //hBox2.setPadding(new Insets(20,20,20,20));
         //hBox1.setAlignment(Pos.CENTER_LEFT);
         //hBox2.setAlignment(Pos.CENTER_RIGHT);
@@ -106,11 +121,14 @@ public class App extends Application {
 
         //Creating title;
         title.setFont(font);
+        radioButton1.setFont(font3);
+        radioButton2.setFont(font3);
+        radioButton3.setFont(font3);
         button1.setFont(font2);
         button2.setFont(font2);
         //Random_AI_Button.setFont(font);
         //Defensive_AI_Button.setFont(font);
-        title.setAlignment(Pos.TOP_RIGHT);
+        up.setAlignment(Pos.TOP_RIGHT);
         right.setAlignment(Pos.BOTTOM_RIGHT);
 
 
@@ -146,6 +164,7 @@ public class App extends Application {
                 //gridPane.setPadding(new Insets(10,10,10,10));
                 btns[label]=button;
                 label++;
+
 
 
             }
