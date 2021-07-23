@@ -72,17 +72,17 @@ public class App extends Application {
         //VBox main=new VBox();
         VBox right =new VBox();
         Region spacer=new Region();
-        spacer.setMaxSize(100,100);
-        //VBox up=new VBox();
+        spacer.setMaxSize(10,10);
+        VBox up=new VBox();
         Label title=new Label("Theme");
         //VBox.setMargin(up,new Insets(250,250,250,250));
         //VBox.setMargin(right,new Insets(250,250,250,250));
-        //up.setPrefWidth(250);
-        //up.setPrefHeight(35);
-        //up.setPadding(new Insets(20,0,50,370));
+        up.setPrefWidth(250);
+        up.setPrefHeight(35);
+        up.setPadding(new Insets(20,0,50,370));
         //up.setSpacing(10);
-        //title.setMinWidth(right.getPrefWidth());
-        //title.setMinHeight(right.getPrefHeight());
+        title.setMinWidth(up.getPrefWidth());
+        title.setMinHeight(up.getPrefHeight());
         right.setPrefWidth(250);
         right.setPrefHeight(35);
         right.setPadding(new Insets(10,50,50,50));
@@ -101,29 +101,21 @@ public class App extends Application {
         button1.setMinHeight(right.getPrefHeight());
         button2.setMinWidth(right.getPrefWidth());
         button2.setMinHeight(right.getPrefHeight());
-        radioButton1.setMinWidth(right.getPrefWidth());
-        radioButton1.setMinHeight(right.getPrefHeight());
-        radioButton2.setMinWidth(right.getPrefWidth());
-        radioButton2.setMinHeight(right.getPrefHeight());
-        radioButton3.setMinWidth(right.getPrefWidth());
-        radioButton3.setMinHeight(right.getPrefHeight());
-        right.getChildren().addAll(title,radioButton1,radioButton2,radioButton3,spacer,button1,button2);
-        //up.getChildren().addAll(title,radioButton1,radioButton2,radioButton3);
-        //main.getChildren().addAll(up,right);
-        //main.setPadding(new Insets(10,20,30,40));
-
+        radioButton1.setMinWidth(up.getPrefWidth());
+        radioButton1.setMinHeight(up.getPrefHeight());
+        radioButton2.setMinWidth(up.getPrefWidth());
+        radioButton2.setMinHeight(up.getPrefHeight());
+        radioButton3.setMinWidth(up.getPrefWidth());
+        radioButton3.setMinHeight(up.getPrefHeight());
+        right.getChildren().addAll(spacer,button1,button2);
+        up.getChildren().addAll(title,radioButton1,radioButton2,radioButton3);
         //hBox2.getChildren().addAll(up,right);
         //hBox.getChildren().addAll(gridPane,main);
         //hBox.setPadding(new Insets(20,20,20,20));
         //hBox2.setPadding(new Insets(20,20,20,20));
         //hBox1.setAlignment(Pos.CENTER_LEFT);
         //hBox2.setAlignment(Pos.CENTER_RIGHT);
-
-
-
         //title.setLayoutX(700);
-
-
         //Creating title;
         title.setFont(font);
         radioButton1.setFont(font3);
@@ -133,27 +125,13 @@ public class App extends Application {
         button2.setFont(font2);
         button1.setStyle("-fx-base: black");
         button2.setStyle("-fx-base: black");
-        //Random_AI_Button.setFont(font);
-        //Defensive_AI_Button.setFont(font);
-        //up.setAlignment(Pos.TOP_RIGHT);
-        right.setAlignment(Pos.CENTER_RIGHT);
-
-
-        //creating restart button
-        //themeButton.setFont(font);
-        //borderPane.setTop(up);
-        //borderPane.setCenter(Random_AI_Button);
-        //Random_AI_Button.setMaxSize(200,20);
-        //borderPane.setBottom(Defensive_AI_Button);
-        //Defensive_AI_Button.setMaxSize(200,20);
-
-        //borderPane.setPadding(Random_AI_Button);
+        up.setAlignment(Pos.TOP_RIGHT);
+        right.setAlignment(Pos.BOTTOM_RIGHT);
+        borderPane.setTop(up);
         borderPane.setBottom(right);
         //borderPane.setRight(right);
-        //borderPane.setBottom(Defensive_AI_Button);
-        //BorderPane.setAlignment(up, Pos.TOP_RIGHT);
-        BorderPane.setAlignment(right,Pos.CENTER_RIGHT);
-        //BorderPane.setAlignment(Defensive_AI_Button,Pos.BASELINE_RIGHT);
+        BorderPane.setAlignment(up, Pos.TOP_RIGHT);
+        BorderPane.setAlignment(right,Pos.BOTTOM_RIGHT);
         //borderPane.setPadding(new Insets(10,10,10,10));
         //9 buttons
         int label=0;
@@ -164,7 +142,7 @@ public class App extends Application {
                 Button button=new Button(label+"");
                 button.setId(label+"");
                 button.setFont(font);
-                button.setPrefWidth(100);
+                button.setPrefWidth(150);
                 button.setPrefHeight(150);
                 gridPane.add(button,j,i);
                 gridPane.setAlignment(Pos.CENTER_LEFT);
