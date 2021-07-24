@@ -41,7 +41,7 @@ public class App extends Application
 
     private Button[]btns=new Button[9];
     boolean gameOver=false;
-    int player=0;
+    boolean player=false;
     int AI=1;
     int gameState[]= {3,3,3,3,3,3,3,3,3};
     int winningPosition[][]= {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}
@@ -174,16 +174,21 @@ public class App extends Application
                     } else {
                         if (gameState[idI] == 3)
                         {
-                            if (player==1) {
-                                currentBtn.setText((player + ""));
-                                gameState[idI] = player;
-                                checkForWinner();
-                                player = 0;
+                            if (player) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Error Message");
+                                alert.setContentText("Computer's move now!!");
+                                alert.show();
+                                /*currentBtn.setText(("X"));
+                                gameState[idI] = 1;
+                                checkForWinner();*/
+                                player =false;
                             } else {
-                                currentBtn.setText(player + "");
-                                gameState[idI] = player;
+
+                                currentBtn.setText("0");
+                                gameState[idI] = 0;
                                 checkForWinner();
-                                player = 1;
+                                player =true;
                             }
                         }
                         else
