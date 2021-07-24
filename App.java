@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * JavaFX App
@@ -29,7 +30,23 @@ import java.io.IOException;
 public class App extends Application
 {
 
-    private static Scene scene;
+    /*private static Scene scene;
+    Random random=new Random();
+    JFrame frame=new JFrame();
+    JPanel title_panel=new JPanel();
+    JPanel button_panel=new JPanel();
+    boolean player_turn;*/
+    public static String currentTurn="X";
+    public static String  turn(){
+        if(currentTurn=="X")
+        { currentTurn="0";
+        }
+        else {
+            currentTurn="X";
+        }
+        return currentTurn;
+    }
+
 
 
     //GUI
@@ -42,6 +59,7 @@ public class App extends Application
     private Button[]btns=new Button[9];
     boolean gameOver=false;
     int player=0;
+    int AI=1;
     int gameState[]= {3,3,3,3,3,3,3,3,3};
     int winningPosition[][]= {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}
     };
@@ -149,9 +167,7 @@ public class App extends Application
                 //gridPane.setPadding(new Insets(10,10,10,10));
                 btns[label]=button;
                 label++;
-
-
-
+            
             }
         }
         for(Button btn:btns)
@@ -165,7 +181,7 @@ public class App extends Application
                     String idS = currentBtn.getId();
                     int idI = Integer.parseInt(idS);//ids is button id
                     //System.out.println("Button clicked of id "+idI);
-                    if (gameOver) {
+                    /*if (gameOver) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Message");
                         alert.setContentText("Game Over!!");
@@ -173,7 +189,7 @@ public class App extends Application
                     } else {
                         if (gameState[idI] == 3)
                         {
-                            if (player == 1) {
+                            if (player==1) {
                                 currentBtn.setText((player + ""));
                                 gameState[idI] = player;
                                 checkForWinner();
@@ -192,8 +208,7 @@ public class App extends Application
                             alert.setContentText("Place is already occupied");
                             alert.show();
                         }
-                    }
-
+                    }*/
 
                 }
             });
@@ -266,6 +281,16 @@ public class App extends Application
            }
         }
     }
+    /*public void firstTurn(){
+        if(random.nextInt())
+
+    }
+    public void xWins(int a, int b,int c){
+
+    }
+    public void aiWins(int a, int b,int c){
+
+    }*/
 
 
     //method for handling events
