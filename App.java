@@ -1,6 +1,7 @@
 package com.fx;
 
 import com.sun.javafx.menu.MenuItemBase;
+import com.sun.net.httpserver.Authenticator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +26,8 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
-public class App extends Application {
+public class App extends Application
+{
 
     private static Scene scene;
 
@@ -38,10 +40,16 @@ public class App extends Application {
     Font font3=Font.font("Arial",FontWeight.SEMI_BOLD,15);
 
     private Button[]btns=new Button[9];
+    boolean gameOver=false;
+    int player=0;
+    int gameState[]= {3,3,3,3,3,3,3,3,3};
+    int winningPosition[][]= {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}
+    };
 
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException
+    {
 
         this.createGUI();
         //this.handleEvent();
@@ -55,7 +63,8 @@ public class App extends Application {
 
     }
     //creating GUI
-    private void createGUI() {
+    private void createGUI()
+    {
 
 
         //HBox hBox=new HBox();
@@ -126,14 +135,14 @@ public class App extends Application {
         //borderPane.setPadding(new Insets(10,10,10,10));
         //9 buttons
         int label=0;
-        for(int i=0;i<3;i++)
+        for(int i=0; i<3; i++)
         {
-            for(int j=0;j<3;j++)
+            for(int j=0; j<3; j++)
             {
-                Button button=new Button(label+"");
+                Button button=new Button();
                 button.setId(label+"");
                 button.setFont(font);
-                button.setPrefWidth(150);
+                button.setPrefWidth(100);
                 button.setPrefHeight(150);
                 gridPane.add(button,j,i);
                 gridPane.setAlignment(Pos.CENTER_LEFT);
@@ -145,14 +154,125 @@ public class App extends Application {
 
             }
         }
+        for(Button btn:btns)
+        {
+            btn.setOnAction(new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    //System.out.println("Number button clicked");
+                    Button currentBtn = (Button) actionEvent.getSource();
+                    String idS = currentBtn.getId();
+                    int idI = Integer.parseInt(idS);//ids is button id
+                    //System.out.println("Button clicked of id "+idI);
+                    if (gameOver) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setContentText("Game Over!!");
+                        alert.show();
+                    } else {
+                        if (gameState[idI] == 3)
+                        {
+                            if (player == 1) {
+                                currentBtn.setText((player + ""));
+                                gameState[idI] = player;
+                                checkForWinner();
+                                player = 0;
+                            } else {
+                                currentBtn.setText(player + "");
+                                gameState[idI] = player;
+                                checkForWinner();
+                                player = 1;
+                            }
+                        }
+                        else
+                        {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error Message");
+                            alert.setContentText("Place is already occupied");
+                            alert.show();
+                        }
+                    }
+
+
+                }
+            });
+        }
         borderPane.setCenter(gridPane);
 
+        radioButton1.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("Classic button clicked");
+
+            }
+        });
+        radioButton2.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("Forest button clicked");
+
+            }
+        });
+        radioButton3.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("High Contrast button clicked");
+
+            }
+        });
+        button1.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("Random AI button clicked");
+
+            }
+        });
+        button2.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("Defensive AI button clicked");
+
+            }
+        });
+
     }
+    //checks for winner
+    private void checkForWinner() {
+        if(!gameOver)
+        {
+           for(int wp[]:winningPosition)
+           {
+               //0,1,2
+               if(gameState[wp[0]]==gameState[wp[1]]&&gameState[wp[1]]==gameState[wp[2]]&&gameState[wp[1]]!=3)
+               {//player is the winner
+                   Alert alert = new Alert(Alert.AlertType.NONE);
+                   alert.setTitle("Success Message");
+                   alert.setContentText("Player won the game");
+                   alert.show();
+                   gameOver=true;
+                   break;
+               }
+           }
+        }
+    }
+
+
     //method for handling events
     /*private void handleEvent()
     {   //button click
 
-        Button.setOnAction(new EventHandler<ActionEvent>()
+        button1.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event) {
@@ -162,37 +282,34 @@ public class App extends Application {
         });
 
 
-        /*Random_AI_Button.setLayoutX(500);
-        Random_AI_Button.setLayoutY(530);
-        borderPane.getChildren().add(Random_AI_Button);
-        Defensive_AI_Button.setLayoutX(500);
-        Defensive_AI_Button.setLayoutY(630);
-        borderPane.getChildren().add(Defensive_AI_Button);*/
 
 
+    /*for(Button btn:btns)
+    {
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("Number button clicked");
+                Button currentBtn=(Button)actionEvent.getSource();
+                String idS=currentBtn.getId();
+                int idI=Integer.parseInt(idS);//ids is button id
+                System.out.println("Button clicked of id "+idI);
 
-        /*for(Button btn:btns)
-        {
-            btn.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    System.out.println("Number button clicked");
-                    Button currentBtn=(Button)actionEvent.getSource();
-                    String idS=currentBtn.getId();
-                    int idI=Integer.parseInt(idS);//ids is button id
-                    System.out.println("Button clicked of id "+idI);
 
-
-                }
-            });
-        }
+            }
+        });
+    }
 
 
     }*/
 
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args)
+    {
         launch();
     }
+
+
 
 }
