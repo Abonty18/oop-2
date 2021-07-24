@@ -39,6 +39,7 @@ public class App extends Application
     Font font2=Font.font("Arial",FontWeight.BOLD,17);
     Font font3=Font.font("Arial",FontWeight.SEMI_BOLD,15);
 
+
     private Button[]btns=new Button[9];
     boolean gameOver=false;
     boolean player=false;
@@ -179,9 +180,12 @@ public class App extends Application
                                 alert.setTitle("Error Message");
                                 alert.setContentText("Computer's move now!!");
                                 alert.show();
-                                /*currentBtn.setText(("X"));
-                                gameState[idI] = 1;
-                                checkForWinner();*/
+                                Random random=new Random();
+                                int aiPos= random.nextInt(9)+1;
+                                currentBtn.setId(aiPos+"");
+                                currentBtn.setText("X");
+                                gameState[aiPos] = 1;
+                                checkForWinner();
                                 player =false;
                             } else {
 
