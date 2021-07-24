@@ -30,24 +30,7 @@ import java.util.Random;
 public class App extends Application
 {
 
-    /*private static Scene scene;
-    Random random=new Random();
-    JFrame frame=new JFrame();
-    JPanel title_panel=new JPanel();
-    JPanel button_panel=new JPanel();
-    boolean player_turn;*/
-    public static String currentTurn="X";
-    public static String  turn(){
-        if(currentTurn=="X")
-        { currentTurn="0";
-        }
-        else {
-            currentTurn="X";
-        }
-        return currentTurn;
-    }
-
-
+    private static Scene scene;
 
     //GUI
     private GridPane gridPane=new GridPane();
@@ -167,9 +150,11 @@ public class App extends Application
                 //gridPane.setPadding(new Insets(10,10,10,10));
                 btns[label]=button;
                 label++;
-            
+
             }
         }
+
+
         for(Button btn:btns)
         {
             btn.setOnAction(new EventHandler<ActionEvent>()
@@ -180,8 +165,8 @@ public class App extends Application
                     Button currentBtn = (Button) actionEvent.getSource();
                     String idS = currentBtn.getId();
                     int idI = Integer.parseInt(idS);//ids is button id
-                    //System.out.println("Button clicked of id "+idI);
-                    /*if (gameOver) {
+                    System.out.println("Button clicked of id "+idI);
+                    if (gameOver) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Message");
                         alert.setContentText("Game Over!!");
@@ -208,7 +193,7 @@ public class App extends Application
                             alert.setContentText("Place is already occupied");
                             alert.show();
                         }
-                    }*/
+                    }
 
                 }
             });
@@ -281,17 +266,6 @@ public class App extends Application
            }
         }
     }
-    /*public void firstTurn(){
-        if(random.nextInt())
-
-    }
-    public void xWins(int a, int b,int c){
-
-    }
-    public void aiWins(int a, int b,int c){
-
-    }*/
-
 
     //method for handling events
     /*private void handleEvent()
