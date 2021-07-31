@@ -13,7 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -34,19 +36,21 @@ public class App extends Application
 
     //GUI
     private GridPane gridPane=new GridPane();
-    private BorderPane borderPane=new BorderPane();
-    Font font=Font.font("Arial",FontWeight.BOLD,24);
-    Font font2=Font.font("Arial",FontWeight.BOLD,17);
-    Font font3=Font.font("Arial",FontWeight.SEMI_BOLD,15);
+    public BorderPane borderPane=new BorderPane();
+    Font font=Font.font("Segoe Print",FontWeight.EXTRA_BOLD,24);
+    Font font2=Font.font("Showcard Gothic",FontWeight.BOLD,17);
+    Font font3=Font.font("Segoe Print",FontWeight.SEMI_BOLD,15);
+    Font font4=Font.font("Permanent Marker",FontWeight.EXTRA_BOLD,40);
 
 
     private Button[]btns=new Button[9];
     boolean gameOver=false;
-    boolean player=false;
+    boolean player=true;
     int AI=1;
     int gameState[]= {3,3,3,3,3,3,3,3,3};
-    int winningPosition[][]= {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}
-    };
+    int winningPosition[][]= {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
+    public int moveCount=0;
+    public int c;
 
 
     @Override
@@ -55,11 +59,7 @@ public class App extends Application
 
         this.createGUI();
         //this.handleEvent();
-
-        //HBox hBox1=new HBox();
-        //HBox hBox2=new HBox();
-
-        Scene scene=new Scene(borderPane,850,650);
+        Scene scene=new Scene(borderPane,650,650);
         stage.setScene(scene);
         stage.show();
 
@@ -67,73 +67,59 @@ public class App extends Application
     //creating GUI
     private void createGUI()
     {
-
-
-        //HBox hBox=new HBox();
-        //HBox hBox2=new HBox();
-        //VBox main=new VBox();
-        VBox right =new VBox();
-        Region spacer=new Region();
-        spacer.setMaxSize(10,10);
-        VBox up=new VBox();
+        VBox aiButton =new VBox();
+        //Region spacer=new Region();
+        //spacer.setMaxSize(10,10);
+        VBox theme=new VBox();
         Label title=new Label("Theme");
-        //VBox.setMargin(up,new Insets(250,250,250,250));
-        //VBox.setMargin(right,new Insets(250,250,250,250));
-        up.setPrefWidth(250);
-        up.setPrefHeight(35);
-        up.setPadding(new Insets(20,0,50,370));
-        //up.setSpacing(10);
-        title.setMinWidth(up.getPrefWidth());
-        title.setMinHeight(up.getPrefHeight());
-        right.setPrefWidth(250);
-        right.setPrefHeight(35);
-        right.setPadding(new Insets(10,50,50,50));
-        right.setSpacing(10);
-        Button button1=new Button("Start With Random AI");
-        Button button2=new Button("Start With Defensive AI");
+        theme.setPrefWidth(250);
+        theme.setPrefHeight(35);
+        theme.setPadding(new Insets(20,0,50,370));
+        title.setMinWidth(theme.getPrefWidth());
+        title.setMinHeight(theme.getPrefHeight());
+        aiButton.setPrefWidth(250);
+        aiButton.setPrefHeight(35);
+        aiButton.setPadding(new Insets(10,50,50,50));
+        aiButton.setSpacing(10);
+        Button randomAIButton=new Button("Start With Random AI");
+        Button defensiveAIButton=new Button("Start With Defensive AI");
         ToggleGroup group=new ToggleGroup();
-        RadioButton radioButton1=new RadioButton("Classic");
-        radioButton1.setToggleGroup(group);
-        RadioButton radioButton2=new RadioButton("Forrest");
-        radioButton2.setToggleGroup(group);
-        RadioButton radioButton3=new RadioButton("High Contrast");
-        radioButton3.setToggleGroup(group);
+        RadioButton classicButton=new RadioButton("Classic");
+        classicButton.setToggleGroup(group);
+        RadioButton forrestButton=new RadioButton("Forrest");
+        forrestButton.setToggleGroup(group);
+        RadioButton highContrastButton=new RadioButton("High Contrast");
+        highContrastButton.setToggleGroup(group);
 
-        button1.setMinWidth(right.getPrefWidth());
-        button1.setMinHeight(right.getPrefHeight());
-        button2.setMinWidth(right.getPrefWidth());
-        button2.setMinHeight(right.getPrefHeight());
-        radioButton1.setMinWidth(up.getPrefWidth());
-        radioButton1.setMinHeight(up.getPrefHeight());
-        radioButton2.setMinWidth(up.getPrefWidth());
-        radioButton2.setMinHeight(up.getPrefHeight());
-        radioButton3.setMinWidth(up.getPrefWidth());
-        radioButton3.setMinHeight(up.getPrefHeight());
-        right.getChildren().addAll(spacer,button1,button2);
-        up.getChildren().addAll(title,radioButton1,radioButton2,radioButton3);
-        //hBox2.getChildren().addAll(up,right);
-        //hBox.getChildren().addAll(gridPane,main);
-        //hBox.setPadding(new Insets(20,20,20,20));
-        //hBox2.setPadding(new Insets(20,20,20,20));
-        //hBox1.setAlignment(Pos.CENTER_LEFT);
-        //hBox2.setAlignment(Pos.CENTER_RIGHT);
-        //title.setLayoutX(700);
+        randomAIButton.setMinWidth(aiButton.getPrefWidth());
+        randomAIButton.setMinHeight(aiButton.getPrefHeight());
+        defensiveAIButton.setMinWidth(aiButton.getPrefWidth());
+        defensiveAIButton.setMinHeight(aiButton.getPrefHeight());
+        classicButton.setMinWidth(theme.getPrefWidth());
+        classicButton.setMinHeight(theme.getPrefHeight());
+
+        forrestButton.setMinWidth(theme.getPrefWidth());
+        forrestButton.setMinHeight(theme.getPrefHeight());
+        highContrastButton.setMinWidth(theme.getPrefWidth());
+        highContrastButton.setMinHeight(theme.getPrefHeight());
+        aiButton.getChildren().addAll(randomAIButton,defensiveAIButton);
+        theme.getChildren().addAll(title,classicButton,forrestButton,highContrastButton);
         //Creating title;
         title.setFont(font);
-        radioButton1.setFont(font3);
-        radioButton2.setFont(font3);
-        radioButton3.setFont(font3);
-        button1.setFont(font2);
-        button2.setFont(font2);
-        button1.setStyle("-fx-base: black");
-        button2.setStyle("-fx-base: black");
-        up.setAlignment(Pos.TOP_RIGHT);
-        right.setAlignment(Pos.BOTTOM_RIGHT);
-        borderPane.setTop(up);
-        borderPane.setBottom(right);
+        classicButton.setFont(font3);
+        forrestButton.setFont(font3);
+        highContrastButton.setFont(font3);
+        randomAIButton.setFont(font2);
+        defensiveAIButton.setFont(font2);
+        randomAIButton.setStyle("-fx-base: black");
+        defensiveAIButton.setStyle("-fx-base: black");
+        theme.setAlignment(Pos.TOP_RIGHT);
+        aiButton.setAlignment(Pos.BOTTOM_RIGHT);
+        borderPane.setTop(theme);
+        borderPane.setBottom(aiButton);
         //borderPane.setRight(right);
-        BorderPane.setAlignment(up, Pos.TOP_RIGHT);
-        BorderPane.setAlignment(right,Pos.BOTTOM_RIGHT);
+        BorderPane.setAlignment(theme, Pos.TOP_RIGHT);
+        BorderPane.setAlignment(aiButton,Pos.BOTTOM_RIGHT);
         //borderPane.setPadding(new Insets(10,10,10,10));
         //9 buttons
         int label=0;
@@ -143,9 +129,13 @@ public class App extends Application
             {
                 Button button=new Button();
                 button.setId(label+"");
-                button.setFont(font);
+                button.setFont(font4);
                 button.setPrefWidth(100);
-                button.setPrefHeight(150);
+                button.setPrefHeight(100);
+                //button.setPadding(new Insets(100,100,100,100));
+
+                button.setStyle("-fx-border-color:  #000099;-fx-border-width: 4px;-fx-background-color: #8cd3ff;");
+                //button.setStyle("-fx-background-color: #8cd3ff;");
                 gridPane.add(button,j,i);
                 gridPane.setAlignment(Pos.CENTER_LEFT);
                 //gridPane.setPadding(new Insets(10,10,10,10));
@@ -161,64 +151,105 @@ public class App extends Application
             btn.setOnAction(new EventHandler<ActionEvent>()
             {
                 @Override
-                public void handle(ActionEvent actionEvent) {
+                public void handle(ActionEvent actionEvent)
+                {
                     //System.out.println("Number button clicked");
+                    //int moveCount=0;
                     Button currentBtn = (Button) actionEvent.getSource();
                     String idS = currentBtn.getId();
                     int idI = Integer.parseInt(idS);//ids is button id
+
                     System.out.println("Button clicked of id "+idI);
-                    if (gameOver) {
+
+                    Random rand=new Random();
+                    int aiPos=rand.nextInt(8)+0;
+                    System.out.println("Button clicked of id "+aiPos);
+                    if (gameOver)
+                    {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Message");
                         alert.setContentText("Game Over!!");
                         alert.show();
-                    } else {
-                        if (gameState[idI] == 3)
-                        {
-                            if (player) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("Error Message");
-                                alert.setContentText("Computer's move now!!");
-                                alert.show();
-                                Random random=new Random();
-                                int aiPos= random.nextInt(9)+1;
-                                currentBtn.setId(aiPos+"");
-                                currentBtn.setText("X");
-                                gameState[aiPos] = 1;
-                                checkForWinner();
-                                player =false;
-                            } else {
+                    }
+                    else
+                    {
 
-                                currentBtn.setText("0");
+                        if (gameState[idI] == 3)
+
+                        {
+                            if(moveCount<9)
+                            {
+
+
+
+                                currentBtn.setText("O");
+
                                 gameState[idI] = 0;
                                 checkForWinner();
-                                player =true;
+                                //draw();
+                                player =false;
+                                moveCount++;
+                                System.out.println("mv count"+moveCount);
                             }
+                            if(moveCount<9&& !(gameOver))
+                            {
+                                while(gameState[aiPos]!=3)
+
+                                    aiPos= rand.nextInt(8)+0;
+                                idI=aiPos;
+                                gameState[idI] = 1;
+                                currentBtn=btns[aiPos];
+                                checkForWinner();
+
+                                currentBtn.setText("X");
+
+
+                                player =true;
+                                moveCount++;
+                                System.out.println("mv count"+moveCount);
+                            }
+
+                            c=moveCount;
+                            System.out.println("mv count"+c);
+                            if(moveCount==9 && !gameOver)
+                            {Alert alert1 = new Alert(Alert.AlertType.NONE);
+                                alert1.setTitle("Success Message");
+                                alert1.setContentText("It's a draw");
+                                alert1.show();
+                                gameOver=true;}
+
+
                         }
+
                         else
                         {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error Message");
-                            alert.setContentText("Place is already occupied");
+                            alert.setContentText("Place is already occupied! press another button");
                             alert.show();
+
+
                         }
                     }
 
                 }
+
+
             });
         }
         borderPane.setCenter(gridPane);
 
-        radioButton1.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        classicButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
             {
                 System.out.println("Classic button clicked");
+                classicButton.setGraphic(new ImageView("file:src/main/resources/img/classic.jpg"));
 
             }
         });
-        radioButton2.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        forrestButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
@@ -227,7 +258,7 @@ public class App extends Application
 
             }
         });
-        radioButton3.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        highContrastButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
@@ -236,7 +267,7 @@ public class App extends Application
 
             }
         });
-        button1.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        randomAIButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
@@ -245,7 +276,7 @@ public class App extends Application
 
             }
         });
-        button2.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+        defensiveAIButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
@@ -256,42 +287,81 @@ public class App extends Application
         });
 
     }
+
     //checks for winner
-    private void checkForWinner() {
+    private void checkForWinner()
+    {
         if(!gameOver)
         {
-           for(int wp[]:winningPosition)
-           {
-               //0,1,2
-               if(gameState[wp[0]]==gameState[wp[1]]&&gameState[wp[1]]==gameState[wp[2]]&&gameState[wp[1]]!=3)
-               {//player is the winner
-                   Alert alert = new Alert(Alert.AlertType.NONE);
-                   alert.setTitle("Success Message");
-                   alert.setContentText("Player won the game");
-                   alert.show();
-                   gameOver=true;
-                   break;
-               }
-           }
+            for(int wp[]:winningPosition)
+            {
+                //0,1,2
+                if(gameState[wp[0]]==gameState[wp[1]]&&gameState[wp[1]]==gameState[wp[2]]&&gameState[wp[1]]!=3)
+                {
+                    //player is the winner
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.setTitle("Success Message");
+                    //alert1.setTitle("Gameover! Try to restart");
+                    if (player)
+                    {
+
+                        alert.setContentText("Player won the game");
+                        btns[wp[0]].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY,Insets.EMPTY)));
+                        btns[wp[1]].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY,Insets.EMPTY)));
+                        btns[wp[2]].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY,Insets.EMPTY)));
+                        alert.show();
+                        gameOver=true;
+                        break;
+                    }
+                    else //if(!player)
+                    {
+
+                        alert.setContentText("Computer won the game");
+                        btns[wp[0]].setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY,Insets.EMPTY)));
+                        btns[wp[1]].setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY,Insets.EMPTY)));
+                        btns[wp[2]].setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY,Insets.EMPTY)));
+                        alert.show();
+                        gameOver=true;
+                        break;
+                    }
+
+                }
+
+
+            }
         }
+       /* else if(c==9&&!gameOver)
+        {   Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setContentText("It's a draw");
+            alert.show();
+            //gameOver=true;
+            //break;
+        }*/
+        //else
+        //{Alert alert1 = new Alert(Alert.AlertType.NONE);
+        //  alert1.setTitle("Gameover! Try to restart");}
     }
+    /*private void draw()
+    {
+        if(c==9 && !gameOver)
+        {Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Success Message");
+            alert1.setContentText("It's a draw");
+            alert1.show();
+            gameOver=true;
+        }
+    }*/
 
     //method for handling events
     /*private void handleEvent()
     {   //button click
-
         button1.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Random AI button clicked");
-
             }
         });
-
-
-
-
     /*for(Button btn:btns)
     {
         btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -302,17 +372,10 @@ public class App extends Application
                 String idS=currentBtn.getId();
                 int idI=Integer.parseInt(idS);//ids is button id
                 System.out.println("Button clicked of id "+idI);
-
-
             }
         });
     }
-
-
     }*/
-
-
-
     public static void main(String[] args)
     {
         launch();
