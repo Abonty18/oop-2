@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -39,8 +40,9 @@ public class App extends Application
     public BorderPane borderPane=new BorderPane();
     Font font=Font.font("Segoe Print",FontWeight.EXTRA_BOLD,24);
     Font font2=Font.font("Showcard Gothic",FontWeight.BOLD,17);
-    Font font3=Font.font("Segoe Print",FontWeight.SEMI_BOLD,15);
+    Font font3=Font.font("Segoe Print",FontWeight.BOLD,17);
     Font font4=Font.font("Permanent Marker",FontWeight.EXTRA_BOLD,40);
+
 
 
     private Button[]btns=new Button[9];
@@ -75,6 +77,7 @@ public class App extends Application
         theme.setPrefWidth(250);
         theme.setPrefHeight(35);
         theme.setPadding(new Insets(20,0,50,370));
+
         title.setMinWidth(theme.getPrefWidth());
         title.setMinHeight(theme.getPrefHeight());
         aiButton.setPrefWidth(250);
@@ -113,6 +116,10 @@ public class App extends Application
         defensiveAIButton.setFont(font2);
         randomAIButton.setStyle("-fx-base: black");
         defensiveAIButton.setStyle("-fx-base: black");
+        /*title.setStyle("-fx-base: black");
+        classicButton.setStyle("-fx-base: lightblue");
+        forrestButton.setStyle("-fx-base: lightblue");
+        highContrastButton.setStyle("-fx-base: lightblue");*/
         theme.setAlignment(Pos.TOP_RIGHT);
         aiButton.setAlignment(Pos.BOTTOM_RIGHT);
         borderPane.setTop(theme);
@@ -134,7 +141,7 @@ public class App extends Application
                 button.setPrefHeight(100);
                 //button.setPadding(new Insets(100,100,100,100));
 
-                button.setStyle("-fx-border-color:  #000099;-fx-border-width: 4px;-fx-background-color: #8cd3ff;");
+                //button.setStyle("-fx-border-color:  #221e41;-fx-border-width: 4px;-fx-background-color: #8cd3ff;");
                 //button.setStyle("-fx-background-color: #8cd3ff;");
                 gridPane.add(button,j,i);
                 gridPane.setAlignment(Pos.CENTER_LEFT);
@@ -144,7 +151,6 @@ public class App extends Application
 
             }
         }
-
 
         for(Button btn:btns)
         {
@@ -164,14 +170,14 @@ public class App extends Application
                     Random rand=new Random();
                     int aiPos=rand.nextInt(8)+0;
                     System.out.println("Button clicked of id "+aiPos);
-                    if (gameOver)
+                    /*if (gameOver)
                     {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Message");
                         alert.setContentText("Game Over!!");
                         alert.show();
-                    }
-                    else
+                    }*/
+                    if(!gameOver)
                     {
 
                         if (gameState[idI] == 3)
@@ -245,7 +251,24 @@ public class App extends Application
             public void handle(ActionEvent actionEvent)
             {
                 System.out.println("Classic button clicked");
-                classicButton.setGraphic(new ImageView("file:src/main/resources/img/classic.jpg"));
+                Image image=new Image("file:src/main/resources/img/classic.jpg");
+                borderPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.REPEAT,
+                                                                 BackgroundRepeat.REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT)));
+                title.setStyle("-fx-base: black");
+                classicButton.setStyle("-fx-text-fill: lightblue;");
+                forrestButton.setStyle("-fx-text-fill: lightblue;");
+                highContrastButton.setStyle("-fx-text-fill: lightblue;");
+                randomAIButton.setStyle("-fx-base: black");
+                defensiveAIButton.setStyle("-fx-base: black");
+                //button.setStyle("-fx-border-color:  #221e41;-fx-border-width: 4px;-fx-background-color: #8cd3ff;");
+                /*classicButton.setStyle("-fx-base: lightblue");
+                forrestButton.setStyle("-fx-base: lightblue");
+                highContrastButton.setStyle("-fx-base: lightblue");*/
+
+
+
 
             }
         });
@@ -255,6 +278,17 @@ public class App extends Application
             public void handle(ActionEvent actionEvent)
             {
                 System.out.println("Forest button clicked");
+                Image image=new Image("file:src/main/resources/img/forrest.jpg");
+                borderPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.REPEAT,
+                        BackgroundRepeat.REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT)));
+                title.setStyle("-fx-base: black");
+                classicButton.setStyle("-fx-text-fill: white;");
+                forrestButton.setStyle("-fx-text-fill: white;");
+                highContrastButton.setStyle("-fx-text-fill: white;");
+                randomAIButton.setStyle("-fx-base: green");
+                defensiveAIButton.setStyle("-fx-base: green");
 
             }
         });
@@ -264,6 +298,17 @@ public class App extends Application
             public void handle(ActionEvent actionEvent)
             {
                 System.out.println("High Contrast button clicked");
+                Image image=new Image("file:src/main/resources/img/highcontrast.jpg");
+                borderPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.REPEAT,
+                        BackgroundRepeat.REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT)));
+                title.setStyle("-fx-base: black");
+                classicButton.setStyle("-fx-text-fill: lightgreen;");
+                forrestButton.setStyle("-fx-text-fill: lightgreen;");
+                highContrastButton.setStyle("-fx-text-fill: lightgreen;");
+                randomAIButton.setStyle("-fx-base: lightblue");
+                defensiveAIButton.setStyle("-fx-base: lightblue");
 
             }
         });
